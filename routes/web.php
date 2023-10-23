@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\ClassController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,23 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+//__class routes__//
+Route::get('/class', [ClassController::class, 'index'])->middleware(['auth', 'verified'])->name('class.index');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
