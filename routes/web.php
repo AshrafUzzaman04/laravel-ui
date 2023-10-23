@@ -33,6 +33,10 @@ Route::get("/deposit/money", [HomeController::class, 'deposit'])->middleware(["a
 
 Route::get("/view/user/{id}", [HomeController::class, 'view'])->middleware(["auth"])->name("view.user");
 
+Route::get("/change-password", [HomeController::class, 'change_password'])->middleware(["auth"])->name("change.password");
+
+Route::post("/update-password", [HomeController::class, 'update_password'])->middleware(["auth"])->name("update.password");
+
 //__varifiacation notice__//
 Route::get('/email/verify', function () {
     return view('auth.verify');

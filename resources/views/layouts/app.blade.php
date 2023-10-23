@@ -61,6 +61,9 @@
                                     <a class="dropdown-item" href="{{ route('deposit.money') }}">
                                         Deposit Money
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('change.password') }}">
+                                        Change Password
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
