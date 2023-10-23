@@ -11,7 +11,7 @@ class ClassController extends Controller
     //__construct fucntion__//
     public function __construct()
     {
-        $this->middleware(["auth", "verified"]);
+        $this->middleware(["auth"]);
     }
 
     public function index()

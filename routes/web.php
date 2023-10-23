@@ -25,7 +25,7 @@ Route::get('/', function () {
 Auth::routes();
 
 //__class routes__//
-Route::get('/class', [ClassController::class, 'index'])->middleware(['auth', 'verified'])->name('class.index');
+Route::get('/class', [ClassController::class, 'index'])->middleware(['auth'])->name('class.index');
 
 
 

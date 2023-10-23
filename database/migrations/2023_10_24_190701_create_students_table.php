@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string("name")->nullable();
             $table->string("email");
             $table->integer("mobile");
+            $table->unsignedBigInteger('class_id');
+            $table->foreign('class_id')->on('classes')->references('id');
             $table->timestamps();
         });
     }
