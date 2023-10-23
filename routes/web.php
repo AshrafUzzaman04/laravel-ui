@@ -31,6 +31,8 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 
 Route::get("/deposit/money", [HomeController::class, 'deposit'])->middleware(["auth", "verified"])->name("deposit.money");
 
+Route::get("/view/user/{id}", [HomeController::class, 'view'])->middleware(["auth"])->name("view.user");
+
 //__varifiacation notice__//
 Route::get('/email/verify', function () {
     return view('auth.verify');
