@@ -71,7 +71,9 @@ class StudentsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $classes =  DB::table("classes")->get();
+        $students =  DB::table("students")->where("id", Crypt::decryptString($id))->first();
+        return view("admin.student.edit-student", compact("students", "classes"));
     }
 
     /**
@@ -79,8 +81,28 @@ class StudentsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $decrypt = Crypt::decryptString($id);
+        $request->validate([
+            "name" => "required",
+            "email" => "required|email",
+            "number" => "required",
+            "roll" => "required|alpha_num|min:1",
+            "class_id" => "required",
+        ]);
+
+        $data = [
+            "name" => $request->name,
+            "email" => $request->email,
+            "mobile" => $request->number,
+            "roll" => $request->roll,
+            "class_id" => $request->class_id,
+        ];
+
+        DB::table("students")->where("id", $decrypt)->update($data);
+
+        return redirect()->route("students.index")->with("status", "Student Updated Successfully!");
     }
+
 
     /**
      * Remove the specified resource from storage.

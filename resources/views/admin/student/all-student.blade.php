@@ -34,7 +34,7 @@
                                 <td>{{$row->class_id}}</td>
                                 <td>
                                     <div>
-                                        <a href="{{route("class.edit", Crypt::encryptString($row->id))}}" class="btn btn-sm btn-warning d-inline">Edit</a>
+                                        <a href="{{route("students.edit", Crypt::encryptString($row->id))}}" class="btn btn-sm btn-warning d-inline">Edit</a>
                                         <form action="{{route("students.destroy",Crypt::encryptString($row->id))}}" class="d-inline" method="post">
                                             @csrf
                                             @method('delete')
