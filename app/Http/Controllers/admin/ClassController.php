@@ -17,7 +17,7 @@ class ClassController extends Controller
 
     public function index()
     {
-        $class = DB::table("classes")->get();
+        $class = DB::table("classes")->paginate(4);
 
         //__use any__//
         return view("admin.class", ['class' => $class]);
@@ -27,11 +27,11 @@ class ClassController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            "name" => "required|unique:classes,name",
+            "name" => "required|unique:classes,class_name",
         ]);
 
         $data = array(
-            "name" => $request->name,
+            "class_name" => $request->name,
         );
 
         DB::table("classes")->insert($data);
@@ -53,7 +53,7 @@ class ClassController extends Controller
         ]);
 
         $data = array(
-            "name" => $request->name,
+            "class_name" => $request->name,
         );
 
         DB::table("classes")->where("id", Crypt::decryptString($id))->update($data);

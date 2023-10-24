@@ -18,10 +18,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($class as $sn => $cls)
+                            @foreach ($class as $cls)
                             <tr>
-                                <td>{{++$sn}}</td>
-                                <td>{{$cls->name}}</td>
+                                <td>{{$class->firstItem() + $loop->index}}</td>
+                                <td>{{$cls->class_name}}</td>
                                 <td>
                                     <div>
                                         <a href="{{route("class.edit", Crypt::encryptString($cls->id))}}" class="btn btn-sm btn-warning d-inline">Edit</a>
@@ -36,6 +36,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                {{ $class->links()}}
                 </div>
             </div>
         </div>

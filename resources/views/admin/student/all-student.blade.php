@@ -8,7 +8,7 @@
                 @if (session()->has("status"))
                 <div class="alert alert-success">{{session()->get("status")}}</div>
                 @endif
-                <div class="card-body">
+                <div class="card-body overflow-x-scroll">
                     {{-- add class button --}}
                     <button class="btn btn-sm btn-primary my-3 float-end"><a href="{{route("students.create")}}" class="text-white text-decoration-none font-bold">Add New Student</a></button>
                     <table class="table table-bordered table-responsive table-striped table-hover">

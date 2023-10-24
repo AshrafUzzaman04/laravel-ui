@@ -78,7 +78,7 @@
                                     @foreach ($classes as $class)
                                     <option value="{{$class->id}}" @if ( $students->class_id == $class->id )
                                         selected
-                                    @endif>{{$class->name}}</option>
+                                    @endif>{{$class->class_name}}</option>
                                     @endforeach
                                 </select>
 

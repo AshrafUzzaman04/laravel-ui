@@ -19,8 +19,9 @@ class StudentsController extends Controller
     }
     public function index()
     {
-        $students = DB::table('students')->orderBy('roll', 'ASC')->get();
+        $students = DB::table("students")->get();
         return view("admin.student.all-student", compact("students"));
+        // dd($students);
     }
 
     /**
@@ -71,10 +72,16 @@ class StudentsController extends Controller
      */
     public function edit(string $id)
     {
-        $classes =  DB::table("classes")->get();
-        $students =  DB::table("students")->where("id", Crypt::decryptString($id))->first();
+        $decryptedId = Crypt::decryptString($id);
+        $classes = DB::table("classes")->get();
+        $student = DB::table('students')
+            ->where("id", $decryptedId)
+            ->first();
         return view("admin.student.edit-student", compact("students", "classes"));
+        // dd($student);
     }
+
+
 
     /**
      * Update the specified resource in storage.
@@ -85,7 +92,7 @@ class StudentsController extends Controller
         $request->validate([
             "name" => "required",
             "email" => "required|email",
-            "number" => "required",
+            "number" => "required|max:11",
             "roll" => "required|alpha_num|min:1",
             "class_id" => "required",
         ]);

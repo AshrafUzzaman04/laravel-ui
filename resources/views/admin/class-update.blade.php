@@ -20,7 +20,7 @@
                             <label  class="col-md-4 col-form-label text-md-end">{{ __('Class Name') }}</label>
 
                             <div class="col-md-6">
-                                <input  type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $class->name ?? old('name') }}">
+                                <input  type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $class->class_name ?? old('name') }}">
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">

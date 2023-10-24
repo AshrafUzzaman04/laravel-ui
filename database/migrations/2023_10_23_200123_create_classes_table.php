@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->string('class_name')->nullable();
             $table->timestamps();
         });
     }
