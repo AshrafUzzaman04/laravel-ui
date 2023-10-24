@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\admin\ClassController;
+use App\Http\Controllers\admin\StudentsController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,18 +22,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route("home");
 });
 
 Auth::routes();
 
 //__class routes__//
 Route::get('/class', [ClassController::class, 'index'])->middleware(['auth'])->name('class.index');
+Route::get('/add-class', function () {
+    return view("admin.add-class");
+})->middleware(['auth'])->name('class.add');
+Route::post('/class/create', [ClassController::class, 'create'])->middleware(['auth'])->name('class.create');
+Route::delete('/class/destroy/{id}', [ClassController::class, 'destroy'])->middleware(['auth'])->name('class.destroy');
+Route::get('/class-update/{id}', function ($id) {
+    $class = DB::table("classes")->where("id", Crypt::decryptString($id))->first();
+    return view("admin.class-update", compact("class"));
+})->middleware(['auth'])->name('class.edit');
+Route::put('/class/update/{id}', [ClassController::class, 'update'])->middleware(['auth'])->name('class.update');
 
 
-
-
-
+//__students routes__//
+Route::resource('students', StudentsController::class);
 
 
 

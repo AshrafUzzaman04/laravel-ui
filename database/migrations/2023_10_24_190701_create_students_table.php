@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string("name")->nullable();
-            $table->string("email");
-            $table->integer("mobile");
+            $table->string("email")->unique();
+            $table->integer("mobile")->unique();
+            $table->integer("roll")->unique();
             $table->unsignedBigInteger('class_id');
             $table->foreign('class_id')->on('classes')->references('id');
             $table->timestamps();
