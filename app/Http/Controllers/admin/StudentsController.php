@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,8 @@ class StudentsController extends Controller
     }
     public function index()
     {
-        $students = DB::table("students")->get();
+        // $students = DB::table("students")->get();
+        $students = student::all();
         return view("admin.student.all-student", compact("students"));
         // dd($students);
     }
@@ -74,9 +76,7 @@ class StudentsController extends Controller
     {
         $decryptedId = Crypt::decryptString($id);
         $classes = DB::table("classes")->get();
-        $student = DB::table('students')
-            ->where("id", $decryptedId)
-            ->first();
+        $students = DB::table('students')->where("id", $decryptedId)->first();
         return view("admin.student.edit-student", compact("students", "classes"));
         // dd($student);
     }
