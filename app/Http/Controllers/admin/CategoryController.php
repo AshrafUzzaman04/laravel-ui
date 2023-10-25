@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -60,7 +62,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $categories =  Category::find(Crypt::decryptString($id));
+        return view("admin.category.edit-category", compact("categories"));
     }
 
     /**
@@ -68,7 +71,22 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            "name" => "required",
+        ]);
+
+        Category::where('id', Crypt::decryptString($id))
+            ->update([
+                "category_name" => $request->name,
+                "category_slug" => Str::slug($request->name, "-"),
+            ]);
+
+        // $category =  Category::find(Crypt::decryptString($id));
+        // $category->category_name = $request->name;
+        // $category->category_slug = Str::slug($request->name, "-");
+        // $category->save();
+
+        return redirect()->back()->with("status", "Category Updated Successfully!");
     }
 
     /**
@@ -76,5 +94,15 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
+        // Category::where("id", Crypt::decryptString($id))->delete();
+
+        // $category = Category::find(Crypt::decryptString($id));
+        // $category->delete();
+
+        Category::destroy(Crypt::decryptString($id));
+
+        // DB::table("categories")->where("id", Crypt::decryptString($id))->delete();
+
+        return redirect()->back()->with("status", "Category Deleted Successfully!");
     }
 }
