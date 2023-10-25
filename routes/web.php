@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\ClassController;
 use App\Http\Controllers\admin\StudentsController;
 use App\Http\Controllers\HomeController;
@@ -43,6 +44,10 @@ Route::put('/class/update/{id}', [ClassController::class, 'update'])->middleware
 
 //__students routes__//
 Route::resource('students', StudentsController::class);
+
+
+//__category routes__//
+Route::resource('category', CategoryController::class);
 
 
 

@@ -16,6 +16,7 @@
 
                     <a href="{{route("class.index")}}" class="btn btn-sm btn-warning">Class</a>
                     <a href="{{route("students.index")}}" class="btn btn-sm btn-secondary">Students</a>
+                    <a href="{{route("category.index")}}" class="btn btn-sm btn-warning">Category</a>
 
                     {{ __('You are logged in!') }} {{Auth::user()->name}}
                     <a href="{{route("view.user", Crypt::encryptString(Auth::user()->id))}}" class="btn btn-primary">Ashraf</a>
