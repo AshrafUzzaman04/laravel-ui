@@ -51,7 +51,10 @@ Route::resource('category', CategoryController::class);
 
 
 
-
+//__admin routes__//
+Route::get("/admin", function () {
+    return view("welcome");
+})->middleware("auth")->name("admin.view");
 
 
 
