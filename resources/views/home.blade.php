@@ -13,13 +13,9 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    <a href="{{route("class.index")}}" class="btn btn-sm btn-warning">Class</a>
-                    <a href="{{route("students.index")}}" class="btn btn-sm btn-secondary">Students</a>
-                    <a href="{{route("category.index")}}" class="btn btn-sm btn-warning">Category</a>
-
-                    {{ __('You are logged in!') }} {{Auth::user()->name}}
-                    <a href="{{route("view.user", Crypt::encryptString(Auth::user()->id))}}" class="btn btn-primary">Ashraf</a>
+                    {{ __('Welcome!') }} {{Auth::user()->name}}
+                    <a href="{{route("admin.view")}}"  class="btn btn-sm btn-primary d-block w-25 my-3">Admin Panel</a>
+                    {{-- <a href="{{route("view.user", Crypt::encryptString(Auth::user()->id))}}" class="btn btn-primary">Ashraf</a> --}}
                 </div>
             </div>
         </div>

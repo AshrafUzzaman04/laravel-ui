@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard</title>
+  <title>Ashraf Uzzaman</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="{{asset("backend")}}/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset("backend")}}/plugins/summernote/summernote-bs4.min.css">
+  @state("css")
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -88,5 +89,7 @@
 <script src="{{asset("backend")}}/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset("backend")}}/dist/js/pages/dashboard.js"></script>
+@state("script")
+  @endstate
 </body>
 </html>
