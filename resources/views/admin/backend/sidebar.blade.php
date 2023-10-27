@@ -53,6 +53,29 @@
             </ul>
           </li>
           <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Sub Category
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route("sub-categories.index")}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Sub Category</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route("sub-categories.create")}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Sub Category</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
             <a  class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
