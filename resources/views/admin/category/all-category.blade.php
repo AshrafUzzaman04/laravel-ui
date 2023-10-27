@@ -38,6 +38,7 @@
                             <th>Serial No.</th>
                             <th>Name</th>
                             <th>Slug</th>
+                            <th>Sub Category</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -47,6 +48,12 @@
                         <td>{{++$sn}}</td>
                         <td>{{$row->category_name}}</td>
                         <td>{{$row->category_slug}}</td>
+                        <td> @foreach ($row->subCategory as $subCategory)
+                            {{ $subCategory->sub_catname }}
+                            @if (!$loop->last)
+                                ,
+                            @endif
+                        @endforeach</td>
                         <td>
                             <div>
                                 <a href="{{route("category.edit", Crypt::encryptString($row->id))}}" class="btn btn-sm btn-warning d-inline">Edit</a>

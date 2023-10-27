@@ -36,9 +36,9 @@
                     <thead>
                         <tr>
                             <th>Serial No.</th>
-                            <th>Name</th>
-                            <th>Slug</th>
                             <th>Category</th>
+                            <th>Sub Cat Name</th>
+                            <th>Sub Cat Slug</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -46,13 +46,13 @@
                     @foreach ($sub_categories as $sn => $row)
                     <tr>
                         <td>{{++$sn}}</td>
+                        <td>{{$row->category->category_name}}</td>
                         <td>{{$row->sub_catname}}</td>
-                        <td>{{$row->sub_catslug}}</td>
                         <td>{{$row->sub_catslug}}</td>
                         <td>
                             <div>
                                 <a href="{{route("sub-categories.edit", Crypt::encryptString($row->id))}}" class="btn btn-sm btn-warning d-inline">Edit</a>
-                                <form action="{{route("category.destroy",Crypt::encryptString($row->id))}}" class="d-inline cat-dlt-form" method="post">
+                                <form action="{{route("sub-categories.destroy",Crypt::encryptString($row->id))}}" class="d-inline cat-dlt-form" method="post">
                                     @csrf
                                     @method('delete')
                                     <button type="button" class="btn btn-sm btn-danger cat-delete">Delete</button>
