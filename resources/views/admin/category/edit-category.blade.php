@@ -44,3 +44,6 @@
     </div>
 </div>
 @endsection
+@push("script")
+{!! Toastr::message() !!}
+@endpush

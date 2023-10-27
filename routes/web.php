@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\ClassController;
 use App\Http\Controllers\admin\StudentsController;
 use App\Http\Controllers\HomeController;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;

@@ -1,28 +1,28 @@
 @extends("layouts.backend.app")
 @push("css")
-<link rel="stylesheet" href="{{asset("admin/backend")}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" href="{{asset("admin/backend")}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-<link rel="stylesheet" href="{{asset("admin/backend")}}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+<link rel="stylesheet" href="{{asset("backend")}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="{{asset("backend")}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet" href="{{asset("backend")}}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+<link rel="stylesheet" href="{{asset("backend/plugins/sweetalert2/sweetalert2.min.css")}}">
 @endpush
 @section("content")
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>All Categories</h1>
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>All Categories</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="{{route("admin.view")}}">Home</a></li>
+                <li class="breadcrumb-item active">All Categories</li>
+              </ol>
+            </div>
           </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{route("admin.view")}}">Home</a></li>
-              <li class="breadcrumb-item active">All Categories</li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
+        </div><!-- /.container-fluid -->
+      </section>
 
     <!-- Main content -->
     <section class="content">
@@ -30,12 +30,9 @@
         <div class="row">
           <div class="col-12">
             <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">DataTable with minimal features & hover style</h3>
-              </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover">
+                <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>Serial No.</th>
@@ -53,16 +50,16 @@
                         <td>
                             <div>
                                 <a href="{{route("category.edit", Crypt::encryptString($row->id))}}" class="btn btn-sm btn-warning d-inline">Edit</a>
-                                <form action="{{route("category.destroy",Crypt::encryptString($row->id))}}" class="d-inline" method="post">
+                                <form action="{{route("category.destroy",Crypt::encryptString($row->id))}}" class="d-inline cat-dlt-form" method="post">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    <button type="button" class="btn btn-sm btn-danger cat-delete">Delete</button>
                                 </form>
                             </div>
                         </td>
                     </tr>
                     @endforeach
-                </tbody>
+                  </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
@@ -77,25 +74,22 @@
     </section>
     <!-- /.content -->
   </div>
+<!-- Content Wrapper. Contains page content -->
 @endsection
 @push("script")
 <!-- DataTables  & Plugins -->
-<script src="{{asset("admin/backend")}}/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="{{asset("admin/backend")}}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="{{asset("admin/backend")}}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="{{asset("admin/backend")}}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="{{asset("admin/backend")}}/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="{{asset("admin/backend")}}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="{{asset("admin/backend")}}/plugins/jszip/jszip.min.js"></script>
-<script src="{{asset("admin/backend")}}/plugins/pdfmake/pdfmake.min.js"></script>
-<script src="{{asset("admin/backend")}}/plugins/pdfmake/vfs_fonts.js"></script>
-<script src="{{asset("admin/backend")}}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="{{asset("admin/backend")}}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="{{asset("admin/backend")}}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-<!-- AdminLTE App -->
-<script src="{{asset("admin/backend")}}/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{asset("admin/backend")}}/dist/js/demo.js"></script>
+<script src="{{asset("backend")}}/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="{{asset("backend")}}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{asset("backend")}}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{asset("backend")}}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="{{asset("backend")}}/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="{{asset("backend")}}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="{{asset("backend")}}/plugins/jszip/jszip.min.js"></script>
+<script src="{{asset("backend")}}/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="{{asset("backend")}}/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="{{asset("backend")}}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="{{asset("backend")}}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="{{asset("backend/plugins/sweetalert2/sweetalert2.min.js")}}"></script>
 <!-- Page specific script -->
 <script>
   $(function () {
@@ -103,16 +97,39 @@
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
+
+    // $('#example2').DataTable({
+    //   "paging": true,
+    //   "lengthChange": false,
+    //   "searching": false,
+    //   "ordering": true,
+    //   "info": true,
+    //   "autoWidth": false,
+    //   "responsive": true,
+    // });
   });
 </script>
+
+<script>
+    $(document).ready(function (){
+        $(".cat-delete").click(function (){
+            Swal.fire({
+            title: 'Are you sure?',
+            text: "You deleted this category!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).parent(".cat-dlt-form").submit();
+                }
+            })
+        })
+    })
+</script>
+
+{!! Toastr::message() !!}
 @endpush
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
@@ -46,7 +47,8 @@ class CategoryController extends Controller
             "category_slug" => Str::slug($request->name, '-'),
         ]);
 
-        return redirect()->back()->with("status", "Category Added Successfully!");
+        Toastr::success($request->name . ' Category Inserted Successfully', 'Congratulations', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
     }
 
     /**
@@ -86,7 +88,9 @@ class CategoryController extends Controller
         // $category->category_slug = Str::slug($request->name, "-");
         // $category->save();
 
-        return redirect()->back()->with("status", "Category Updated Successfully!");
+        Toastr::success('Category Updated Successfully', 'Congratulations', ["positionClass" => "toast-top-right", "progressBar" => true]);
+
+        return redirect()->back();
     }
 
     /**
@@ -99,10 +103,13 @@ class CategoryController extends Controller
         // $category = Category::find(Crypt::decryptString($id));
         // $category->delete();
 
+        $selct_category =  Category::where("id", Crypt::decryptString($id))->first();
+
         Category::destroy(Crypt::decryptString($id));
 
         // DB::table("categories")->where("id", Crypt::decryptString($id))->delete();
 
-        return redirect()->back()->with("status", "Category Deleted Successfully!");
+        Toastr::error($selct_category->category_name . ' Category Deleted Successfully', 'Congratulations', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
     }
 }

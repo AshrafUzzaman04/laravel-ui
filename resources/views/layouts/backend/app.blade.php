@@ -25,7 +25,9 @@
   <link rel="stylesheet" href="{{asset("backend")}}/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset("backend")}}/plugins/summernote/summernote-bs4.min.css">
-  @state("css")
+  {{-- toastr css --}}
+  <link rel="stylesheet" href="{{asset("backend/plugins/toastr/toastr.min.css")}}">
+  @stack("css")
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -89,7 +91,7 @@
 <script src="{{asset("backend")}}/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset("backend")}}/dist/js/pages/dashboard.js"></script>
-@state("script")
-  @endstate
+<script src="{{asset("backend/plugins/toastr/toastr.min.js")}}"></script>
+@stack("script")
 </body>
 </html>
