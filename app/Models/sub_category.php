@@ -20,7 +20,6 @@ class sub_category extends Model
     ];
 
     protected $casts = [
-        "cat_id" => "integer",
         "sub_catname" => "string",
         "sub_catslug" => "string"
     ];

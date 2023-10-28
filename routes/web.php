@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\ClassController;
+use App\Http\Controllers\admin\PostController;
 use App\Http\Controllers\admin\StudentsController;
 use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\HomeController;
@@ -60,6 +61,9 @@ Route::get("/admin", function () {
 
 //__sub categories routes__//
 Route::resource("sub-categories", SubCategoryController::class)->middleware("auth");
+
+//__post all routes__//
+Route::resource("post", PostController::class)->middleware("auth");
 
 
 

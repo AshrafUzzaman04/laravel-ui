@@ -91,6 +91,36 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item @if (Route::currentRouteName() === "post.index" ||
+           Route::currentRouteName() === "post.create")
+           menu-open
+          @endif">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Posts
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route("post.index")}}" class="nav-link @if (Route::currentRouteName() === "post.index")
+                active
+                @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Post</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route("post.create")}}" class="nav-link @if (Route::currentRouteName() === "post.create")
+                active
+                @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Create Post</p>
+                </a>
+              </li>
+            </ul>
+          </li>
           <li class="nav-item">
             <a  class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
