@@ -47,7 +47,7 @@ class SubCategoryController extends Controller
             "selectedCatForSubCat" => "required",
         ]);
 
-        sub_category::insert([
+        sub_category::create([
             "sub_catname" => $request->name,
             "sub_catslug" => Str::slug($request->name),
             "cat_id" => $request->selectedCatForSubCat,

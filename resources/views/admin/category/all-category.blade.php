@@ -118,9 +118,10 @@
 </script>
 
 <script>
-    $(document).ready(function (){
-        $(".cat-delete").click(function (){
-            Swal.fire({
+    $(document).ready(function () {
+    // Use event delegation on a parent element that exists on the page
+    $(document).on("click", ".cat-delete", function () {
+        Swal.fire({
             title: 'Are you sure?',
             text: "You deleted this category!",
             icon: 'warning',
@@ -128,13 +129,14 @@
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $(this).parent(".cat-dlt-form").submit();
-                }
-            })
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $(this).closest(".cat-dlt-form").submit();
+            }
         })
-    })
+    });
+});
+
 </script>
 
 {!! Toastr::message() !!}

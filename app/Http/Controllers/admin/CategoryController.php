@@ -42,7 +42,7 @@ class CategoryController extends Controller
         // $category->category_slug = Str::slug($request->name, '-');
         // $category->save();
 
-        $category::insert([
+        $category::create([
             "category_name" => $request->name,
             "category_slug" => Str::slug($request->name, '-'),
         ]);

@@ -13,7 +13,7 @@
           <img src="{{asset("backend")}}/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image" loading="lazy">
         </div>
         <div class="info">
-          <a href="{{route("admin.view")}}" class="d-block">{{Auth::user()->name}}</a>
+          <a href="{{route("admin.view")}}" class="d-block">{{Auth::user()->name_email}}</a>
         </div>
       </div>
 

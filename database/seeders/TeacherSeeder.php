@@ -19,6 +19,8 @@ class TeacherSeeder extends Seeder
     {
 
         Teacher::factory()->count(10)->create();
+
+
         // DB::table('teachers')->insert([
         //     'name' => Str::random(10),
         //     'email' => Str::random(10) . '@gmail.com',
