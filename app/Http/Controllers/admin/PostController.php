@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class PostController extends Controller
@@ -56,7 +58,7 @@ class PostController extends Controller
             "selectSubCatForPost" => "required",
             "title" => "required|string|unique:posts",
             "description" => "required",
-            "postImg" => "required|image|mimes:jpeg,png,jpg|max:2048" //max 2MB
+            "postImg" => "required|image|mimes:jpeg,png,jpg|max:2048", //max 2MB
         ]);
 
         $photo = $request->postImg;
@@ -72,6 +74,7 @@ class PostController extends Controller
             "slug" => Str::slug($request->title),
             "post_image" => "assets/image/post/" . $image,
             "description" => $request->description,
+            "status" => ($request->status),
         ]);
 
         // dd($post);
@@ -108,8 +111,31 @@ class PostController extends Controller
             "selectCatForPost" => "required",
             "selectSubCatForPost" => "required",
             "title" => "required|string",
-            "description" => "required"
+            "postImg" => "image|mimes:png,jpg,jpeg|max:2048",
+            "description" => "required",
         ]);
+
+        $photo = $request->postImg;
+        $status = ($request->status) ?? 0;
+        if ($photo) {
+            if (File::exists(public_path("$request->old_image"))) {
+                File::delete(public_path("$request->old_image"));
+            }
+            $image = Str::slug($request->title) . "." . $photo->getClientOriginalExtension();
+            $moveImg  = public_path("assets/image/post/" . $image);
+            Image::make($photo)->fit(80, 80)->save($moveImg);
+
+            Post::where("id", Crypt::decryptString($id))->update([
+                "cat_id" => $request->selectCatForPost,
+                "subcat_id" => $request->selectSubCatForPost,
+                "user_id" => Auth::id(),
+                "title" => $request->title,
+                "slug" => Str::slug($request->title),
+                "description" => $request->description,
+                "post_image" => "assets/image/post/" . $image,
+                "status" => $status,
+            ]);
+        }
 
         Post::where("id", Crypt::decryptString($id))->update([
             "cat_id" => $request->selectCatForPost,
@@ -118,6 +144,7 @@ class PostController extends Controller
             "title" => $request->title,
             "slug" => Str::slug($request->title),
             "description" => $request->description,
+            "status" => $status,
         ]);
 
         Toastr::success("Post successfully Updated!", "Congratulations!");
@@ -129,7 +156,10 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        // Post::find(Crypt::decryptString($id));
+        $image = Post::where("id", Crypt::decryptString($id))->select("post_image")->first();
+        if (File::exists(public_path($image->post_image))) {
+            File::delete(public_path($image->post_image));
+        }
         Post::destroy(Crypt::decryptString($id));
 
         Toastr::error("Category Deleted Successfully!", "Warning!");

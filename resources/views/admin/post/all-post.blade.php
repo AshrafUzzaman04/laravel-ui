@@ -32,7 +32,7 @@
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="all_post_table" class="table table-bordered table-striped table-responsive">
+                <table id="all_post_table" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>Serial No.</th>
@@ -65,8 +65,13 @@
                         <td>{{$row->title}}</td>
                         <td>{{$row->slug}}</td>
                         <td>{{$row->description}}</td>
-                        <td>{{$row->post_date}}</td>
-                        <td>{{$row->status}}</td>
+                        <td>{{date("d F, Y", strtotime($row->post_date)) }}</td>
+                        <td>@if($row->status === 1)
+                        <div class="badge bg-success">Active</div>
+                        @else
+                        <div class="badge bg-danger">Inactive</div>
+                        @endif
+                        </td>
                         <td>
                             <div>
                                 <a href="{{route("post.edit", Crypt::encryptString($row->id))}}" class="btn btn-sm btn-warning d-inline">Edit</a>

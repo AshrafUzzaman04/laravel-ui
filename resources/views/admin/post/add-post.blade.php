@@ -75,6 +75,10 @@
                             <div class="text-danger">{{$message}}</div>
                         @enderror
                     </div>
+                    <div>
+                        <input type="checkbox" id="statusForInsertPost" name="status" value="1">
+                        <label for="statusForInsertPost">&nbsp Publish Now!</label>
+                    </div>
 
                   </div>
                   <!-- /.card-body -->

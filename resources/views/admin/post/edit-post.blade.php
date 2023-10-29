@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Edit Post') }}</div>
                 <div class="card-body">
-                    <form action="{{route("post.update", Crypt::encryptString($post->id))}}" method="post">
+                    <form action="{{route("post.update", Crypt::encryptString($post->id))}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method("put")
                       <div class="card-body">
@@ -65,7 +65,8 @@
                           <label for="postImgForCreate">File input</label>
                           <div class="input-group">
                             <div class="custom-file">
-                              <input type="file" class="custom-file-input" name="postImg" id="postImgForCreate">
+                              <input type="file" class="custom-file-input" name="postImg" id="postImgForCreate" value="{{old("postImg")}}">
+                              <input type="hidden" name="old_image" value="{{$post->post_image}}">
                               <label class="custom-file-label" for="postImgForCreate">Choose file</label>
                             </div>
                             <div class="input-group-append">
@@ -75,6 +76,11 @@
                             @error("postImg")
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="statusForInsertPost" name="status" value="1" {{($post->status === 1) ? "checked" : null}}>
+                            <label for="statusForInsertPost">&nbsp Publish Now!</label>
                         </div>
 
                       </div>
