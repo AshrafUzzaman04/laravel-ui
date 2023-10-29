@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger("user_id");
             $table->string("title");
             $table->string("slug");
-            $table->text("image")->nullable();
+            $table->string("post_image");
             $table->text("description");
             $table->timestamp("post_date")->useCurrent();
             $table->integer("status")->default(0);

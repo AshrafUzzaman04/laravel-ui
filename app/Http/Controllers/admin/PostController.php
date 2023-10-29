@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class PostController extends Controller
 {
@@ -53,9 +54,15 @@ class PostController extends Controller
         $request->validate([
             "selectCatForPost" => "required",
             "selectSubCatForPost" => "required",
-            "title" => "required|string",
-            "description" => "required"
+            "title" => "required|string|unique:posts",
+            "description" => "required",
+            "postImg" => "required|image|mimes:jpeg,png,jpg|max:2048" //max 2MB
         ]);
+
+        $photo = $request->postImg;
+        $image = Str::slug($request->title) . "." . $photo->getClientOriginalExtension();
+        $moveImg  = public_path("assets/image/post/" . $image);
+        Image::make($photo)->fit(80, 80)->save($moveImg);
 
         Post::create([
             "cat_id" => $request->selectCatForPost,
@@ -63,8 +70,11 @@ class PostController extends Controller
             "user_id" => Auth::id(),
             "title" => $request->title,
             "slug" => Str::slug($request->title),
+            "post_image" => "assets/image/post/" . $image,
             "description" => $request->description,
         ]);
+
+        // dd($post);
 
         Toastr::success("Post created successfully", "Congratulations!");
         return redirect()->back();

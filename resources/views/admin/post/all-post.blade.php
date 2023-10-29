@@ -36,6 +36,7 @@
                     <thead>
                         <tr>
                             <th>Serial No.</th>
+                            <th>Image</th>
                             <th>User</th>
                             <th>Category</th>
                             <th>Sub Category</th>
@@ -51,6 +52,13 @@
                     @foreach ($posts as $sn => $row)
                     <tr>
                         <td>{{++$sn}}</td>
+                        <td>
+                            @if ($row->post_image)
+                            <img src="{{(asset("$row->post_image"))}}" alt="{{$row->slug}}" width="80px" height="80px" loading="lazy">
+                            @else
+                            No image found
+                            @endif
+                            </td>
                         <td>{{$row->userName->name}}</td>
                         <td>{{$row->categoryname->category_name}}</td>
                         <td>{{$row->subCategoryName->sub_catname}}</td>
