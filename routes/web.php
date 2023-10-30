@@ -31,43 +31,19 @@ Route::get('/', function () {
 Auth::routes();
 
 //__class routes__//
-Route::get('/class', [ClassController::class, 'index'])->middleware(['auth'])->name('class.index');
-Route::get('/add-class', function () {
-    return view("admin.add-class");
-})->middleware(['auth'])->name('class.add');
-Route::post('/class/create', [ClassController::class, 'create'])->middleware(['auth'])->name('class.create');
-Route::delete('/class/destroy/{id}', [ClassController::class, 'destroy'])->middleware(['auth'])->name('class.destroy');
-Route::get('/class-update/{id}', function ($id) {
-    $class = DB::table("classes")->where("id", Crypt::decryptString($id))->first();
-    return view("admin.class-update", compact("class"));
-})->middleware(['auth'])->name('class.edit');
-Route::put('/class/update/{id}', [ClassController::class, 'update'])->middleware(['auth'])->name('class.update');
-
-
-//__students routes__//
-Route::resource('students', StudentsController::class);
-
-
-//__category routes__//
-Route::resource('category', CategoryController::class);
-
-
-
-//__admin routes__//
-Route::get("/admin", function () {
-    return view("welcome");
-})->middleware("auth")->name("admin.view");
-
-
-//__sub categories routes__//
-Route::resource("sub-categories", SubCategoryController::class)->middleware("auth");
-
-//__post all routes__//
-Route::resource("post", PostController::class)->middleware("auth");
-
-
-
-
+Route::name("class.")->group(function () {
+    Route::get('/class', [ClassController::class, 'index'])->name('index');
+    Route::get('/add-class', function () {
+        return view("admin.add-class");
+    })->name('add');
+    Route::post('/class/create', [ClassController::class, 'create'])->name('create');
+    Route::delete('/class/destroy/{id}', [ClassController::class, 'destroy'])->name('destroy');
+    Route::get('/class-update/{id}', function ($id) {
+        $class = DB::table("classes")->where("id", Crypt::decryptString($id))->first();
+        return view("admin.class-update", compact("class"));
+    })->name('edit');
+    Route::put('/class/update/{id}', [ClassController::class, 'update'])->name('update');
+})->middleware("auth");
 
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
@@ -83,6 +59,7 @@ Route::get("/view/user/{id}", [HomeController::class, 'view'])->middleware(["aut
 Route::get("/change-password", [HomeController::class, 'change_password'])->middleware(["auth"])->name("change.password");
 
 Route::post("/update-password", [HomeController::class, 'update_password'])->middleware(["auth"])->name("update.password");
+
 
 //__varifiacation notice__//
 Route::get('/email/verify', function () {
