@@ -46,6 +46,9 @@ Route::name("class.")->group(function () {
 })->middleware("auth");
 
 
+
+
+
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
 

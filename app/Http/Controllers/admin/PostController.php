@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Events\PostProcessed;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
@@ -65,6 +66,10 @@ class PostController extends Controller
         $image = Str::slug($request->title) . "." . $photo->getClientOriginalExtension();
         $moveImg  = public_path("assets/image/post/" . $image);
         Image::make($photo)->fit(80, 80)->save($moveImg);
+
+        $edata = ["title" => $request->title, "date" => date("d F, Y")];
+        //__event calling__//
+        event(new PostProcessed($edata));
 
         Post::create([
             "cat_id" => $request->selectCatForPost,

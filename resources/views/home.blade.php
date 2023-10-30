@@ -14,7 +14,12 @@
                         </div>
                     @endif
                     {{ __('Welcome!') }} {{Auth::user()->name}}
-                    <a href="{{route("admin.view")}}"  class="btn btn-sm btn-primary d-block w-25 my-3">Admin Panel</a>
+                    <div class="d-block">
+                        @if (Auth::user()->is_admin === 1)
+                        <a href="{{route("admin.view")}}"  class="btn btn-sm btn-warning mx-1 my-3">Admin Panel</a>
+                        @endif
+                        <a href="{{route("class.index")}}"  class="btn btn-sm btn-secondary mx-1 my-3">Classes</a>
+                    </div>
                     {{-- <a href="{{route("view.user", Crypt::encryptString(Auth::user()->id))}}" class="btn btn-primary">Ashraf</a> --}}
                 </div>
             </div>
