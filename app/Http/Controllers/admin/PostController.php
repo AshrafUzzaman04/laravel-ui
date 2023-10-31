@@ -67,8 +67,8 @@ class PostController extends Controller
         $moveImg  = public_path("assets/image/post/" . $image);
         Image::make($photo)->fit(80, 80)->save($moveImg);
 
-        $edata = ["title" => $request->title, "date" => date("d F, Y")];
         //__event calling__//
+        $edata = ["title" => $request->title, "date" => date("d F, Y")];
         event(new PostProcessed($edata));
 
         Post::create([

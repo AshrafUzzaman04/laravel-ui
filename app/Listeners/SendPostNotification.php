@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\PostProcessed;
 use App\Mail\UserMail;
+use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,9 @@ class SendPostNotification
      */
     public function handle(PostProcessed $event): void
     {
-        Mail::to(Auth::user()->email)->send(new UserMail($event->post));
+        $user =  User::all();
+        foreach ($user as $value) {
+            Mail::to($value->email)->send(new UserMail($event->post));
+        }
     }
 }
