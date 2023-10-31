@@ -2,20 +2,14 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Events\PostProcessed;
-use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Post;
-use App\Models\sub_category;
-use Brian2694\Toastr\Facades\Toastr;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
+use Illuminate\Http\Request;
+use App\Events\PostProcessed;
+use Brian2694\Toastr\Facades\Toastr;
+use App\Http\Controllers\Controller;
+use App\Models\{Category, Post, sub_category};
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\{Auth, Cache, Crypt, DB, Storage, File};
 
 class PostController extends Controller
 {
@@ -28,7 +22,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Cache::remember("post", 15, function () {
+            return Post::all();
+        });
         // $posts =  DB::table("posts")
         //     ->join("categories", "posts.cat_id", "categories.id")
         //     ->join("sub_categories", "posts.subcat_id", "sub_categories.id")

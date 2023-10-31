@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\{Auth, Cache, Crypt, Hash};
 
 class HomeController extends Controller
 {
@@ -17,6 +15,14 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function demo()
+    {
+        $hellow = "hellow";
+        Cache::put("hellow", $hellow);
+        Cache::flush();
+        dd(Cache::get("hellow"));
     }
 
     /**

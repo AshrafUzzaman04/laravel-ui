@@ -2,22 +2,27 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Category;
-use Brian2694\Toastr\Facades\Toastr;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\{Cache, Crypt};
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("auth");
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Cache::remember("categories", 15, function () {
+            return Category::all();
+        });
         return view("admin.category.all-category", compact("categories"));
     }
 
@@ -32,7 +37,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Category $category)
+    public function store(Request $request)
     {
         $request->validate([
             "name" => "required|unique:categories,category_name|min:2",
@@ -42,7 +47,8 @@ class CategoryController extends Controller
         // $category->category_slug = Str::slug($request->name, '-');
         // $category->save();
 
-        $category::create([
+
+        Category::create([
             "category_name" => $request->name,
             "category_slug" => Str::slug($request->name, '-'),
         ]);

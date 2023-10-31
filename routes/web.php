@@ -1,17 +1,10 @@
 <?php
 
-use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\ClassController;
-use App\Http\Controllers\admin\PostController;
 use App\Http\Controllers\admin\StudentsController;
-use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\{Auth, Crypt, DB, Request, Route};
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +20,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect()->route("home");
 });
+
+// Route::get("/", [HomeController::class, "demo"]);
+
+Route::get("reload-captcha", function () {
+    return response()->json(['captcha' => captcha_img('flat')]);
+})->name("reload.captcha");
 
 Auth::routes();
 
@@ -45,7 +44,8 @@ Route::name("class.")->group(function () {
     Route::put('/class/update/{id}', [ClassController::class, 'update'])->name('update');
 })->middleware("auth");
 
-
+//__student routes__//
+Route::resource('students', StudentsController::class);
 
 
 

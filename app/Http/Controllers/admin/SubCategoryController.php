@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\sub_category;
+use App\Models\{Category, sub_category};
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\{Crypt, Cache};
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -26,7 +25,9 @@ class SubCategoryController extends Controller
 
         // $sub_categories =  DB::table("sub_categories")->leftJoin("categories", "sub_categories.cat_id", "categories.id")->select("categories.category_name", "sub_categories.*")->get();
 
-        $sub_categories =  sub_category::all();
+        $sub_categories = Cache::remember("sub_categories", 15, function () {
+            return sub_category::all();
+        });
 
         // return response()->json($sub_categories);
         return view("admin.sub-category.all-sub-category", compact("sub_categories"));

@@ -12,9 +12,6 @@ Route::middleware(["auth", "is_admin"])->group(function () {
         return view("welcome");
     })->name("admin.view");
 
-    //__students routes__//
-    Route::resource('students', StudentsController::class);
-
     //__category routes__//
     Route::resource('category', CategoryController::class);
 
