@@ -161,7 +161,6 @@ return [
          */
         Intervention\Image\ImageServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
-
         /*
          * Application Service Providers...
          */

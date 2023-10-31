@@ -75,16 +75,47 @@
                                     </form>
                                 </div>
                             </li>
+                            <li class="nav-item my-auto">
+                                    <select class="form-control language_switcher">
+                                        <option>{{Config::get("lang")[App::getLocale()]}}</option>
+                                        @foreach (Config::get("lang") as $lang => $language )
+                                            @if ($lang !== App::getLocale())
+                                                <option value="{{$lang}}"><a href="#">{{$language}}</a></option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                            </li>
                         @endguest
                     </ul>
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
             @yield('content')
         </main>
     </div>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript">
+    $(document).on("change", ".language_switcher" , function(e){
+        e.preventDefault();
+        var lang = $(this).val();
+        var url = "lang/" + lang;
+        $.ajax({
+            type: "GET",
+            url : url,
+            data:{
+                lang: lang,
+            },
+            success: function(){
+                window.location.reload();
+            },
+            error: function(){
+                window.location.reload();
+            }
+        })
+    })
+    </script>
     @stack("script")
 </body>
 </html>

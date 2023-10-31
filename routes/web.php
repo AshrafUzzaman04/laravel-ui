@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\ClassController;
 use App\Http\Controllers\admin\StudentsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LanguageController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\{Auth, Crypt, DB, Request, Route};
 
@@ -22,6 +23,8 @@ Route::get('/', function () {
 });
 
 // Route::get("/", [HomeController::class, "demo"]);
+
+Route::get("lang/{lang}", [LanguageController::class, "switchLang"]);
 
 Route::get("reload-captcha", function () {
     return response()->json(['captcha' => captcha_img('flat')]);

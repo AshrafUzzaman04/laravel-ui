@@ -1,8 +1,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="{{route("admin.view")}}" class="brand-link">
       <img src="{{asset("backend")}}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8" loading="lazy" />
-      <span class="brand-text font-weight-light">Admin Panel</span>
+      <span class="brand-text font-weight-light">{{__("msg.AdminPanel")}}</span>
     </a>
 
     <!-- Sidebar -->
@@ -27,7 +27,7 @@
                     active
                 @endif">
                     <p>
-                      Dashboard
+                        {{__("msg.Dashboard")}}
                     </p>
                   </a>
           </li>
